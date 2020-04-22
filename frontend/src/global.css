@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+  border: 0;
+}
+
+html,
+body,
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #ffecc7;
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+}
+input,
+button,
+textarea {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+input,
+textarea {
+  background: #ececec;
+}
+textarea {
+  resize: vertical;
+  width: 100%;
+  height: 100px;
+}
+button {
+  width: 100%;
+  background: #f4a548;
+  font-weight: bold;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #bb6e15;
+  color: white;
+}
