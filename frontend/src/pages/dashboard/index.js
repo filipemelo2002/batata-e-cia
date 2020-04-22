@@ -13,7 +13,9 @@ export default function Dashboard({ history }) {
   const [itens, setItens] = useState([]);
   const [stagedChange, setStagedChange] = useState({});
   const [editBtn, setEditBtn] = useState("none");
-  const display = useMemo(() => (editBtn === "none" ? "block" : "none"));
+  const display = useMemo(() => (editBtn === "none" ? "block" : "none"), [
+    editBtn,
+  ]);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -53,6 +55,7 @@ export default function Dashboard({ history }) {
   }
 
   async function editClick(item, index) {
+    window.scrollTo(0, 0);
     const { img_url, title, description, price, _id } = item;
     setEditBtn("block");
 
@@ -81,7 +84,7 @@ export default function Dashboard({ history }) {
     }
 
     try {
-      const response = await api.put(
+      await api.put(
         `menu/item/${stagedChange.id}`,
         {
           img_url,
