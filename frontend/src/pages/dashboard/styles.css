@@ -32,7 +32,16 @@ form {
 input {
   width: 100%;
 }
-
+.logOut {
+  background: transparent;
+  color: #464646;
+  border: 2px dashed #f4a548;
+}
+.logOut:hover {
+  background: none;
+  color: #464646;
+  border: 2px solid #f4a548;
+}
 .itensList {
   padding: 20px;
   height: 100%;
@@ -77,4 +86,20 @@ span {
   align-self: flex-end;
   margin: 10px;
   color: #32cd32;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+section button {
+  background: transparent;
+  width: auto;
+}
+section button:hover {
+  background: transparent;
+  color: transparent;
 }
