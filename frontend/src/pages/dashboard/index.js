@@ -178,6 +178,13 @@ export default function Dashboard({ history }) {
           <button onClick={submitEdited} style={{ display: editBtn }}>
             Salvar alterações
           </button>
+          <button
+            onClick={() => history.push("/profile")}
+            className="logOut"
+            style={{ marginTop: 50 }}
+          >
+            Informações de Login
+          </button>
           <button onClick={() => logOut()} className="logOut">
             Sair
           </button>
