@@ -14,6 +14,7 @@ routes.get('/', (req, res) => {
 
 routes.post('/sessions', SessionsController.create)
 routes.post('/admins', AdminController.create)
+routes.put('/admins', middleware, AdminController.update)
 
 routes.get('/menu/item', MenuController.index)
 routes.post('/menu/item', middleware, celebrate({
