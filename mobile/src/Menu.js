@@ -19,7 +19,7 @@ const screenWidth = Math.round(Dimensions.get("window").width);
 
 import api from "./services/api";
 export default function Menu() {
-  const WHATSAPP = "+5581985822807";
+  const WHATSAPP = "+5581983007910";
   const [itens, setItens] = useState([]);
   const [order, setOrder] = useState([]);
   const [total, setTotal] = useState(0);

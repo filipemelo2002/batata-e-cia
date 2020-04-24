@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 import Menu from "./Menu";
-import Order from "./Order";
 export default function Routes() {
   return (
     <NavigationContainer>
@@ -14,8 +13,6 @@ export default function Routes() {
         }}
       >
         <Stack.Screen name="Menu" component={Menu} />
-
-        <Stack.Screen name="Order" component={Order} />
       </Stack.Navigator>
     </NavigationContainer>
   );
