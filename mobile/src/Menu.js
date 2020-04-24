@@ -7,6 +7,7 @@ import {
   Alert,
   FlatList,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import Constants from "expo-constants";
@@ -18,6 +19,7 @@ const screenWidth = Math.round(Dimensions.get("window").width);
 
 import api from "./services/api";
 export default function Menu() {
+  const WHATSAPP = "+5581985822807";
   const [itens, setItens] = useState([]);
   const [order, setOrder] = useState([]);
   const [total, setTotal] = useState(0);
@@ -34,12 +36,49 @@ export default function Menu() {
       setOrder(newArray);
     }
   }
+  function findAndCollapse(array, order) {
+    const found = array.find((item) => item._id === order._id);
+    if (found) {
+      array.find((item) => item._id === order._id).qtd = found.qtd + 1;
+    } else {
+      const { _id, title, price, ...rest } = order;
+      array.push({ _id, title, qtd: 1, price });
+    }
+  }
+
+  function recieveOrder() {
+    const line = "===========================\n";
+    const pedidos = [];
+    order.forEach((item) => {
+      findAndCollapse(pedidos, item);
+    });
+
+    let body = pedidos.reduce((current, next) => {
+      return (current +=
+        line +
+        `_${next.title}_   \n *preço:* ${formatPrice(
+          next.price
+        )}  \n *quantidade:* ${next.qtd} \n`);
+    }, "");
+
+    let finalPrice = line + "*VALOR FINAL:* " + formatPrice(total);
+    body += finalPrice;
+    Linking.openURL(`whatsapp://send?phone=${WHATSAPP}&text=${body}`);
+
+    setOrder([]);
+    setTotal(0);
+  }
+  function formatPrice(value) {
+    return Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  }
   useEffect(() => {
     async function getCardapio() {
       try {
         const response = await api.get("menu/item");
         setItens(response.data);
-        console.log(response.data);
       } catch (err) {
         Alert.alert("Erro ao buscar informações");
       }
@@ -114,10 +153,7 @@ export default function Menu() {
                       </View>
 
                       <Text style={styles.listPrice}>
-                        {Intl.NumberFormat("pt-BR", {
-                          style: "currency",
-                          currency: "BRL",
-                        }).format(item.price)}
+                        {formatPrice(item.price)}
                       </Text>
                     </View>
                   </View>
@@ -125,7 +161,10 @@ export default function Menu() {
               );
             }}
           />
-          <TouchableOpacity style={[styles.orderButton, { display }]}>
+          <TouchableOpacity
+            style={[styles.orderButton, { display }]}
+            onPress={() => recieveOrder()}
+          >
             <FontAwesome name="whatsapp" size={50} color="#fff" />
 
             <Text style={styles.orderButtonText}>
